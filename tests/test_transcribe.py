@@ -38,6 +38,6 @@ def test_reverse_transcribe():
     """
     seq = "ACTGAACCC"
 
-    assert reverse_transcribe(seq) == GGGUUCAGU
+    assert reverse_transcribe(seq) == "GGGUUCAGU"
 
 
