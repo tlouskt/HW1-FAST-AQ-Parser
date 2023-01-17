@@ -59,8 +59,7 @@ def test_FastaParser():
     assert fasta_records[1] == ('seq1',
                                 'TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT'
                                 )
-
-    pass
+                                
 
 
 def test_FastqParser():
@@ -79,4 +78,3 @@ def test_FastqParser():
                                 '*540($=*,=.062565,2>\'487\')!:&&6=,6,*7>:&132&83*8(58&59>\'8!;28<94,0*;*.94**:9+7"94(>7=\'(!5"2/!%"4#32='
                                 )
     
-    pass
