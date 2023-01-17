@@ -141,7 +141,18 @@ class FastaParser(Parser):
         """
         returns the next fasta record
         """
-        pass
+        seq_name = None
+
+        for idx, line in enumerate(f_obj):
+            line = line.strip()
+            if line == "":
+                raise ValueError(f"Got an empty line for {f_obj.name} @ line {idx+1}")
+            if line.startswith(">"):
+                seq_name = line[1:]
+                continue
+
+            yield (seq_name, line)
+
 
 
 class FastqParser(Parser):
@@ -153,4 +164,27 @@ class FastqParser(Parser):
         """
         returns the next fastq record
         """
-        pass
+        read_qual = True
+        seq_name = None
+        seq = None
+
+        for idx, line in enumerate(f_obj):
+            line = line.strip()
+            if line == "":
+                raise ValueError(f"Got an empty line for {f_obj.name} @ line {idx+1}")
+            if line == "+":
+                continue  # skip this line
+
+            if line.startswith("@"):  # if its a header line, we'll store it
+                seq_name = line[1:]
+                continue
+
+            if (
+                read_qual is True
+            ):  # if read_qual is True, then we'll assume the line is a sequence
+                seq = line
+                read_qual = False
+            else:
+                # we assume that quality will always be after the seq, so if we get here and read_qual is False then we can just return the tuple
+                yield (seq_name, seq, line)  # line here is the quality string
+                read_qual = True
