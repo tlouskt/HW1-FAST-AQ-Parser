@@ -35,7 +35,7 @@ The learning goals of this project are:
 	- [X] Transcription
 	- [X] Reverse Transcription
 
-- [ ] Automate Testing with a [Github Actions](https://docs.github.com/en/actions) (This is the only one you actually have to do)
+- [X] Automate Testing with a [Github Actions](https://docs.github.com/en/actions) (This is the only one you actually have to do)
 
 	See blogposts below on helping set up github actions with pytest:
 	
