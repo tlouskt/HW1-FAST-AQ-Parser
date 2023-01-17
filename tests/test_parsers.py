@@ -72,7 +72,7 @@ def test_FastqParser():
     #fastq parser returns tuple of 3 strings
     fastq_parser = FastqParser("./data/test.fq")
     fastq_records = [fastq_rec for fastq_rec in fastq_parser]
-    assert fastq[0] == ('seq0',
+    assert fastq_records[0] == ('seq0',
  'TGTGGTCGTATAGTTATTGTCATAAATTACACAGAATCGCGATTCTCCGCGTCCACCAATCTTAGTGCACCACAGCATCGACCCGATTTATGACGCTGAG',
  '*540($=*,=.062565,2>\'487\')!:&&6=,6,*7>:&132&83*8(58&59>\'8!;28<94,0*;*.94**:9+7"94(>7=\'(!5"2/!%"4#32=')
     
