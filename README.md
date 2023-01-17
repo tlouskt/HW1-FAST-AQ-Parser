@@ -1,5 +1,5 @@
 
-![BuildStatus](https://github.com/tlouskt/HW1-FAST-AQ-Parser/actions/workflows/main.yml/badge.svg?event=push)
+![BuildStatus](https://github.com/tlouskt/HW1-FAST-AQ-Parser/actions/workflows/ci.yml/badge.svg?event=push)
 
 # Project 1
 Building a FAST[AQ] Parser + Building a DNA -> RNA Transcriber
@@ -29,11 +29,11 @@ The learning goals of this project are:
 	- [X] Edit the `pyproject.toml` file to reflect author information
 	- [X] Update the dependencies to include those that you use in your code
 
-- [ ] Write a unit test (in the test.py file) for
-	- [ ] Fasta Parser
-	- [ ] Fastq Parser
-	- [ ] Transcription
-	- [ ] Reverse Transcription
+- [X] Write a unit test (in the test.py file) for
+	- [X] Fasta Parser
+	- [X] Fastq Parser
+	- [X] Transcription
+	- [X] Reverse Transcription
 
 - [ ] Automate Testing with a [Github Actions](https://docs.github.com/en/actions) (This is the only one you actually have to do)
 
