@@ -1,8 +1,12 @@
 # write tests for parsers
 
 from seqparser import (
-        FastaParser,
-        FastqParser)
+    FastaParser,
+    FastqParser,
+)
+
+import pathlib
+import pytest
 
 
 def test_freebie_parser_1():
@@ -20,7 +24,28 @@ def test_freebie_parser_2():
     """
     assert 1 != 2
 
+def get_filepath(which):
+    data_dir = pathlib.Path(__file__).resolve().parent.parent / "data"
+    if which == "fasta":
+        return data_dir / "test.fa"
+    else:
+        return data_dir / "test.fq"
+
+
+def open_fastq_reference():
+    f = pathlib.Path(__file__).resolve().parent / "fastq-check.txt"
+    with f.open() as f:
+        seqs = list(map(lambda l: l.strip().split("|"), f.readlines()))
+    return seqs  # will be list of lists with seq, quality that were parsed from the test files using get-seq.sh
+
+
+def open_fasta_reference():
+    f = pathlib.Path(__file__).resolve().parent / "fasta-check.txt"
+    with f.open() as f:
+        seqs = list(map(lambda l: l.strip(), f.readlines()))
+    return seqs  # will be a list of seqs, quality that were parsed from the test files using get-seq.s
         
+
 def test_FastaParser():
     """
     Write your unit test for your FastaParser
@@ -28,7 +53,8 @@ def test_FastaParser():
     your FastaParser class and assert that it properly
     reads in the example Fasta File.
     """
-    pass
+    fasta_parser = FastaParser("./data/test.fa")
+    records = [rec for rec in fasta_parser]
 
 
 def test_FastqParser():

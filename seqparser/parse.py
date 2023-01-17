@@ -1,5 +1,5 @@
 import io
-from typing import Tuple, Union
+from typing import Tuple, Union, Iterator, Generator
 
 
 class Parser:
@@ -38,6 +38,8 @@ class Parser:
 
         """
         self.filename = filename
+        self.store = True
+        self._sequences = None
 
     def get_record(
         self, f_obj: io.TextIOWrapper
@@ -103,25 +105,33 @@ class Parser:
         #
         # the interpretation of the following code is that for the lifetime of the filebuffer
         # returned by the `open` function it will be accessible as the variable `f_obj`
+        nseq = 0
         with open(self.filename, "r") as f_obj:
+            rec = self.get_record(
+                f_obj
+            )  # will be a generator that yields tuples of strings
 
-            # this loop will break at some point!
-            # but I will leave it up to you to implement the fix!
+            for seq in rec:
+                yield seq
+                nseq += 1
+            self.store = False
 
-            # You will need to look at the `Try` / `Except` keywords in python
-            # and implement an exception for the error you will find in
-            # the error message you receive.
+            if nseq == 0:
+                raise ValueError(f"File ({self.filename}) had 0 lines.")
 
-            # Alternatively, you can reformulate this to return elements
-            # by just consuming an iterator.
+        # another way to do this with the original construction: 
+        #    while True:
+        #        rec = self.get_record(f_obj)
+        #        yield rec 
+        # is to implement for the FastaParser/FastqParser subclasses' _get_record
+        # functionality where you get (with `next(f_obj)`, for example) two lines
+        # at a time for the FastaParser and simply assume the first is the 
+        # header and the second is the sequence, or something similar.
 
-            while True:
-                rec = self.get_record(f_obj)
-                yield rec
 
     def _get_record(
         self, f_obj: io.TextIOWrapper
-    ) -> Union[Tuple[str, str], Tuple[str, str, str]]:
+    ) -> Iterator[Union[Tuple[str, str], Tuple[str, str, str]]]:
         """
         a method to be overridden by inherited classes.
         """
@@ -137,10 +147,11 @@ class FastaParser(Parser):
     Fasta Specific Parsing
     """
 
-    def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str]:
+    def _get_record(self, f_obj: io.TextIOWrapper) -> Iterator[Tuple[str, str]]:
         """
         returns the next fasta record
         """
+
         seq_name = None
 
         for idx, line in enumerate(f_obj):
@@ -160,7 +171,9 @@ class FastqParser(Parser):
     Fastq Specific Parsing
     """
 
-    def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str, str]:
+    def _get_record(
+        self, f_obj: io.TextIOWrapper
+    ) -> Generator[Tuple[str, str, str], None, None]:
         """
         returns the next fastq record
         """
