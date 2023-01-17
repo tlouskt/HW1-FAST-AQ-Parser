@@ -53,8 +53,12 @@ def test_FastaParser():
     your FastaParser class and assert that it properly
     reads in the example Fasta File.
     """
+    #FastaParser returns tuples of 2 strings Put output into a list and check if the order matches
     fasta_parser = FastaParser("./data/test.fa")
-    records = [rec for rec in fasta_parser]
+    fasta_records = [fasta_rec for fasta_rec in fasta_parser]
+    assert fasta_records[1] == ('seq1','TCCGCCCGCTGTGCTGACGAGACTAGCAGGGAAATAAATAGAGGGTTTAGTTATACTCAGTAGGCAGTTCGATGGCTTATATCTAACTTCTTATTCCGAT')
+
+    pass
 
 
 def test_FastqParser():
@@ -64,4 +68,12 @@ def test_FastqParser():
     your FastqParser class and assert that it properly
     reads in the example Fastq File.
     """
+
+    #fastq parser returns tuple of 3 strings
+    fastq_parser = FastqParser("./data/test.fq")
+    fastq_records = [fastq_rec for fastq_rec in fastq_parser]
+    assert fastq[0] == ('seq0',
+ 'TGTGGTCGTATAGTTATTGTCATAAATTACACAGAATCGCGATTCTCCGCGTCCACCAATCTTAGTGCACCACAGCATCGACCCGATTTATGACGCTGAG',
+ '*540($=*,=.062565,2>\'487\')!:&&6=,6,*7>:&132&83*8(58&59>\'8!;28<94,0*;*.94**:9+7"94(>7=\'(!5"2/!%"4#32=')
+    
     pass
