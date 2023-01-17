@@ -1,3 +1,6 @@
+
+![BuildStatus](https://github.com/tlouskt/HW1-FAST-AQ-Parser/actions/workflows/main.yml/badge.svg?event=push)
+
 # Project 1
 Building a FAST[AQ] Parser + Building a DNA -> RNA Transcriber
 
@@ -248,5 +251,3 @@ def test_module_correct():
 def test_module_incorrect():
     assert add_numbers(2,3) != 0
 ```
-
-![BuildStatus](https://github.com/tlouskt/HW1-FAST-AQ-Parser/actions/workflows/main.yml/badge.svg?event=push)
