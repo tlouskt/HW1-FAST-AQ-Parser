@@ -6,7 +6,7 @@ from seqparser import (
 )
 
 import pathlib
-import pytest
+#import pytest
 
 
 def test_freebie_parser_1():
